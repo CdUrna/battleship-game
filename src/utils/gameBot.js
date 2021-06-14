@@ -1,4 +1,4 @@
-export default class GameUtil {
+export default class GameBot {
     constructor(size) {
         this.size = size;
         console.clear();
@@ -55,7 +55,7 @@ export default class GameUtil {
     }
 
     BuildShip(ship) {
-        let boardCopy = GameUtil.CopyArrayOfObjects(this.board);
+        let boardCopy = GameBot.CopyArrayOfObjects(this.board);
         let direction = this.GetDirection();
 
         let shipCoordinates = [];

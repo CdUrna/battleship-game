@@ -1,7 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import {Provider} from "react-redux";
 import './App.css';
-import {Game} from './Game';
+import Game from "./Game";
+import store from "./store";
 
-ReactDOM.render(<Game size={10} />, document.getElementById("root"));
+const app = (
+    <Provider store={store}>
+        <Game size={10} />
+    </Provider>
+)
+ReactDOM.render(app, document.getElementById("root"));
 

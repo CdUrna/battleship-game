@@ -1,4 +1,5 @@
 body {
+  background: linear-gradient(90deg, #e3ffe7 0%, #d9e7ff 100%);
   color: #785;
 }
 
@@ -23,6 +24,22 @@ h1 {
 
 .game {
   text-align: center;
+}
+
+.log {
+  width: 200px;
+  position: absolute;
+  top: 30%;
+  right: 20%;
+}
+
+.red-span {
+  color: #e52c2c;
+  font-weight: bold;
+}
+
+.italic-span {
+  font-style: italic;
 }
 
 .board {

@@ -1,9 +1,10 @@
 import Cell from "./cell";
+import {connect} from "react-redux";
 
-export default function Board(props) {
+const Board = (props) => {
     return (
         <div className="board">
-            {props.board.map((row, rowIndex) => (
+            {props.firstBoard.map((row, rowIndex) => (
                 <div className="row" key={row}>
                     {row.map((cell, colIndex) => (
                         <Cell
@@ -19,3 +20,12 @@ export default function Board(props) {
         </div>
     );
 }
+
+const mapStateToProps = (state) => {
+    return {
+        firstBoard: state.boards.firstBoard,
+        secondBoard: state.boards.secondBoard,
+    };
+}
+
+export default connect(mapStateToProps, null)(Board);

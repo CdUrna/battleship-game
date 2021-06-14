@@ -2,30 +2,43 @@ import React from 'react'
 import Board from "./components/board";
 import GameOver from "./components/gameOver";
 import GameInfo from "./components/gameInfo";
-import GameUtil from "./utils/gameUtil";
+import GameBot from "./utils/gameBot";
+import StartGame from "./components/startGame";
+import {updateFirstBoard, updateLog, clearLog} from "./reducers/actions";
+import {connect} from "react-redux";
+import Log from "./components/log";
 
-export class Game extends React.Component {
+class Game extends React.Component {
   constructor(props) {
     super(props);
     this.gameInitialize();
   }
 
   gameInitialize() {
-    const gameUtil = new GameUtil(this.props.size);
-    const gameBoard = gameUtil.GenerateBoard();
+    const gameBot = new GameBot(this.props.size);
+    const gameBoard = gameBot.GenerateBoard();
+    this.props.updateFirstBoard(gameBoard);
+    this.props.clearLog();
     this.state = {
       board: gameBoard,
-      ships: gameUtil.ships,
+      ships: gameBot.ships,
       shipBlocksRevealed: 0,
-      totalShipBlocks: gameUtil.totalShipBlocks,
+      totalShipBlocks: gameBot.totalShipBlocks,
       totalShootCount: 0,
       gameOver: false
     };
   }
 
   handleCellClick(cell) {
+    console.log('this.state', this.state);
     if (cell.isSelected) {
       return;
+    }
+
+    const dataForLog = {
+      x: cell.coordinates.x,
+      y: cell.coordinates.y,
+      success: false,
     }
 
     let selectedItem = { ...cell };
@@ -49,6 +62,7 @@ export class Game extends React.Component {
           if(shipCell.x === cell.coordinates.x && shipCell.y === cell.coordinates.y){
             shipCell.isRevealed = true;
             isBreak = true;
+            dataForLog.success = true;
             break;
           }
         }
@@ -66,6 +80,8 @@ export class Game extends React.Component {
       shipBlocksRevealed: shipBlocksRevealed,
       totalShootCount: totalShootCount
     });
+    this.props.updateFirstBoard(board);
+    this.props.updateLog(dataForLog);
 
     if (shipBlocksRevealed === this.state.totalShipBlocks) {
       this.setState({
@@ -80,12 +96,23 @@ export class Game extends React.Component {
     this.setState(this.state);
   }
 
+  handlePlayerOption(player) {
+    console.log(player);
+    const players = player === 'one' ? 1 : 2;
+    this.setState({
+      players,
+    });
+  }
+
   render() {
     return (
         <div className="game">
           <div className="heading">
             <h1>Battleship</h1>
           </div>
+          {/*<div>*/}
+          {/*  <StartGame handlePlayerOption={this.handlePlayerOption.bind(this)}/>*/}
+          {/*</div>*/}
           <div className="game-board">
             <Board
                 board={this.state.board}
@@ -93,6 +120,7 @@ export class Game extends React.Component {
                     this.handleCellClick(cell)
                 }
             />
+          <Log/>
           </div>
           <GameInfo ships={this.state.ships} />
           {this.state.gameOver && (
@@ -105,3 +133,11 @@ export class Game extends React.Component {
     );
   }
 }
+
+const mapDispatchToProps = {
+  updateFirstBoard,
+  updateLog,
+  clearLog,
+};
+
+export default connect(null, mapDispatchToProps)(Game);
