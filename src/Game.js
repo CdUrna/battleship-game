@@ -11,10 +11,10 @@ import Log from "./components/log";
 class Game extends React.Component {
   constructor(props) {
     super(props);
-    this.gameInitialize();
+    this.gameWithBotInitialize();
   }
 
-  gameInitialize() {
+  gameWithBotInitialize() {
     const gameBot = new GameBot(this.props.size);
     const gameBoard = gameBot.GenerateBoard();
     this.props.updateFirstBoard(gameBoard);
@@ -91,7 +91,7 @@ class Game extends React.Component {
   }
 
   handlePlayAgain() {
-    this.gameInitialize();
+    this.gameWithBotInitialize();
 
     this.setState(this.state);
   }
