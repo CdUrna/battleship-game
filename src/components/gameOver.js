@@ -1,18 +1,23 @@
-export default function GameOver(props) {
-    let game = props.game;
+import shipsStore from "../mobx-store/ships-store"
+import {observer} from "mobx-react";
 
-    let accuracy = 100 * game.totalShipBlocks / game.totalShootCount;
+const GameOver = observer((props) => {
 
-    return (
-        <div className="modal">
-            <div className="modal-content">
-                <h1>Game Over</h1>
-                <p>
-                    You have sunk all ships with <strong>{parseInt(accuracy)}% </strong>{" "}
-                    accuracy
-                </p>
-                <button onClick={props.onPlayAgain}> Play Again </button>
+        let accuracy = 100 * shipsStore.totalShipBlocks / shipsStore.totalShootCount;
+
+        return (
+            <div className="modal">
+                <div className="modal-content">
+                    <h1>Game Over</h1>
+                    <p>
+                        You have sunk all ships with <strong>{parseInt(accuracy)}% </strong>{" "}
+                        accuracy
+                    </p>
+                    <button onClick={props.onPlayAgain}> Play Again</button>
+                </div>
             </div>
-        </div>
-    );
-}
+        );
+    }
+)
+
+export default GameOver;

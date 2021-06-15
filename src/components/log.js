@@ -1,22 +1,18 @@
-import {connect} from "react-redux";
+import logStore from "../mobx-store/log-store"
+import {observer} from "mobx-react";
 
-const Log = (props) => {
-    return (
-        <div className="log">
-            {props.history.map((row, rowIndex) => (
-                <div className="history-row">
-                    {`Ход ${rowIndex}: [${row.x + 1}, ${row.y + 1}] - `}
-                    {row.success ? <span className="red-span">Попал</span> : <span className="italic-span">Мимо</span> }
-                </div>
-            ))}
-        </div>
-    )
-}
+const Log = observer((props) => {
+        return (
+            <div className="log">
+                {logStore.log.map((row, rowIndex) => (
+                    <div className="history-row">
+                        {`Ход ${rowIndex}: [${row.x + 1}, ${row.y + 1}] - `}
+                        {row.success ? <span className="red-span">Попал</span> : <span className="italic-span">Мимо</span>}
+                    </div>
+                ))}
+            </div>
+        )
+    }
+)
 
-const mapStateToProps = (state) => {
-    return {
-        history: state.log.history,
-    };
-}
-
-export default connect(mapStateToProps, null)(Log);
+export default Log;

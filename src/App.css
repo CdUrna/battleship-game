@@ -28,9 +28,11 @@ h1 {
 
 .log {
   width: 200px;
+  height: 500px;
   position: absolute;
   top: 10%;
   right: 20%;
+  overflow: auto;
 }
 
 .red-span {
@@ -70,6 +72,10 @@ h1 {
 .selected {
   background-image: linear-gradient(135deg, #5efce8 10%, #736efe 100%);
 }
+/* selector makes ships visible for fast winning and checking */
+/*.ship {*/
+/*  background-image: linear-gradient(135deg, rgba(240, 95, 87, 0.15) 10%, rgba(54, 9, 64, 0.15) 100%);*/
+/*}*/
 
 .selected.ship {
    background-image: linear-gradient(135deg, #f05f57 10%, #360940 100%);

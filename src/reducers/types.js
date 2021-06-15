@@ -1,5 +1,0 @@
-export const UPDATE_FIRST_BOARD = 'UPDATE_FIRST_BOARD';
-export const UPDATE_SECOND_BOARD = 'UPDATE_SECOND_BOARD';
-export const UPDATE_LOG = 'UPDATE_LOG';
-export const CLEAR_LOG = 'CLEAR_LOG';
-

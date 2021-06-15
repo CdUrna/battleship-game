@@ -1,31 +1,26 @@
 import Cell from "./cell";
-import {connect} from "react-redux";
+import boardStore from "../mobx-store/board-store"
+import {observer} from "mobx-react";
 
-const Board = (props) => {
-    return (
-        <div className="board">
-            {props.firstBoard.map((row, rowIndex) => (
-                <div className="row" key={row}>
-                    {row.map((cell, colIndex) => (
-                        <Cell
-                            key={rowIndex + "" + colIndex}
-                            onCellClick={() =>
-                                props.onCellClick(cell)
-                            }
-                            cell={cell}
-                        />
-                    ))}
-                </div>
-            ))}
-        </div>
-    );
-}
+const Board = observer((props) => {
+        return (
+            <div className="board">
+                {boardStore.board.map((row, rowIndex) => (
+                    <div className="row" key={row}>
+                        {row.map((cell, colIndex) => (
+                            <Cell
+                                key={rowIndex + "" + colIndex}
+                                onCellClick={() =>
+                                    props.onCellClick(cell)
+                                }
+                                cell={cell}
+                            />
+                        ))}
+                    </div>
+                ))}
+            </div>
+        );
+    }
+)
 
-const mapStateToProps = (state) => {
-    return {
-        firstBoard: state.boards.firstBoard,
-        secondBoard: state.boards.secondBoard,
-    };
-}
-
-export default connect(mapStateToProps, null)(Board);
+export default Board;

@@ -1,6 +1,6 @@
 export default class GameBot {
-    constructor(size) {
-        this.size = size;
+    constructor() {
+        this.size = 10;
         console.clear();
     }
 

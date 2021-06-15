@@ -1,9 +1,12 @@
-export default function GameInfo(props) {
+import shipsStore from "../mobx-store/ships-store"
+import {observer} from "mobx-react";
+
+const GameInfo = observer((props) => {
     return (
         <div className="game-info">
             <p>Sink all ships by clicking on grid</p>
             <div className="ship-info">
-                {props.ships.map((ship) => (
+                {shipsStore.ships.map((ship) => (
                     <div className="ship-item">
                         {ship.points.map((cell) =>(
                             <div
@@ -20,4 +23,6 @@ export default function GameInfo(props) {
             </div>
         </div>
     );
-}
+})
+
+export default GameInfo;
